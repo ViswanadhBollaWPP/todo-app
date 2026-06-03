@@ -47,12 +47,23 @@ todoForm.addEventListener("submit", (event) => {
   });
 
   deleteButton.addEventListener("click", () => {
-    listItem.remove();
+    listItem.classList.add("removing");
+    listItem.addEventListener(
+      "animationend",
+      () => {
+        listItem.remove();
+      },
+      { once: true }
+    );
   });
 
+  const actions = document.createElement("div");
+  actions.className = "todo-actions";
+  actions.appendChild(completeButton);
+  actions.appendChild(deleteButton);
+
   listItem.appendChild(text);
-  listItem.appendChild(completeButton);
-  listItem.appendChild(deleteButton);
+  listItem.appendChild(actions);
   todoList.appendChild(listItem);
 
   todoInput.value = "";
